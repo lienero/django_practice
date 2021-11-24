@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+# 이 항목에 정의된 urls.py 파일을 가장 먼저 분석하기
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
