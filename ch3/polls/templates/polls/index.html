@@ -1,0 +1,12 @@
+{% comment %} index 뷰 함수에서 넘겨주는 파라미터 {% endcomment %}
+{% if latest_question_list %}
+<ul>
+  {% for question in latest_question_list %}
+  <li>
+    <a href="/polls/{{ question.id }}/">{{ question.question_text }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
