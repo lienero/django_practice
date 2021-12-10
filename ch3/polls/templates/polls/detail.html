@@ -1,0 +1,19 @@
+<h1>{{ question.question_text }}</h1>
+{% if error_message %}
+  <p>
+    <strong>{{ error_message }}</strong>
+  </p>
+{% endif %}
+{% comment %} url은 /polls/question.id/vote와 같은 형태가 된다(urlconf에서 정의함) {% endcomment %}
+<form action="{% url 'polls:vote' question.id %}" method="post">
+  {% comment %} csrf 공격 방지 {% endcomment %}
+  {% csrf_token %}
+  {% comment %} question.choice_set.all의 의미는 Question 객체의 choice_set 속성에 들어있는 항목 모두를 뜻한다. {% endcomment %}
+  {% for choice in question.choice_set.all %}
+  {% comment %} forloop.counter 변수는 for 루프를 실행한 횟수를 담고있는 템플릿 변수입니다. {% endcomment %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{choice.id}}">
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br/>
+  {% endfor %}
+  {% comment %} 전송된 데이터는 vote() 뷰 함수에서 request.POST['choice']구문으로 액세스합니다. {% endcomment %}
+  <input type="submit" value="Vote"/>
+</form>
