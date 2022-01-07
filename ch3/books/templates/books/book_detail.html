@@ -1,0 +1,20 @@
+{% extends 'base_books.html' %}
+
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  <br>
+  <li>Authors:
+    {% comment %} object.authors.all 구문은 object에 연결된 authors 모두라는 의미다.
+    템플릿 문법상 메소드 호출을 의미하는 ()는 사용하지 않습니다. {% endcomment %}
+    {% for author in object.authors.all %}
+      {{ author }}
+      {% if not forloop.last %},
+      {% else %}
+      {% endif %}
+    {% endfor %}
+  </li>
+  <li>Publisher:
+    {{ object.publisher }}</li>
+  <li>Publisher:
+    {{ object.publication_date }}</li>
+{% endblock content %}

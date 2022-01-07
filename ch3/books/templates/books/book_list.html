@@ -1,0 +1,13 @@
+{% extends 'base_books.html' %}
+
+{% block content %}
+  <h2>Book List</h2>
+  <ul>
+    {% for book in object_list %}
+      <li>
+        {% comment %} url은 /books/book/book.id와 같은 형태가 된다(urlconf에서 name: book_detail에서 정의함) {% endcomment %}
+        <a href="{% url 'books:book_detail' book.id %}">{{ book.title }}}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
