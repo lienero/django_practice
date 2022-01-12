@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% comment %} {% load static %}는 static이라는 사용자 정의 태그를 로딩해준다. {% endcomment %}
+    {% load static %}
+    {% comment %} {% static "admin/css/base.css" %}" 태그를 통해 스타일시트 파일을 찾는다. {% endcomment %}
+    <link rel="stylesheet" href="{% static "admin/css/base.css" %}"/>
+    <title>
+      {% block title %}My Amazing Site{% endblock%}</title>
+    </head>
+
+    <body>
+      <div id="sidebar">
+        {% block sidebar %}
+          <ul>
+            <li>
+              <a href="/">Project_Home</a>
+            </li>
+            <li>
+              <a href="/admin">Project_Home</a>
+            </li>
+            <ul>
+        {% endblock %}
+        <br>
+      </div>
+
+      <div id="content">
+        {% block content %}{% endblock %}
+      </div>
+    </body>
+
+</html>

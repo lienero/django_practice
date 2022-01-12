@@ -7,11 +7,11 @@
     add 및 lower 템플릿 필터를 사용하여 모델명이 소문자로 변환된다.
     예를 들어, 모델명이 Author라면 urlvar는 books:author_list가 된다.
     {% endcomment %}
-      {% with "books:" | add: modelname | lower | add : "_list" as urlvar %}
+{% with "books:"|add:modelname|lower|add:"_list" as urlvar %}
       <li>
         <a href="{% url urlvar %}">{{ modelname }}</a>
       </li>
-      {% endwith %}
+{% endwith %}
     {% endfor %}
   </ul>
 {% endblock content %}

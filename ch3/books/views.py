@@ -1,12 +1,6 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from django.views.generic import DetailView
-from books import models
-#
 from books.models import Book, Author, Publisher
 
 # TemplateView
@@ -22,7 +16,7 @@ class BooksModelView(TemplateView):
     # 템블릿 시스템으로 넘겨줄 컨텍스트 변수가 있는 경우에는 get_context_data() 메소드를 오버라이딩해서 정의해주면 됩니다.
     def get_context_data(self, **kwargs):
         # get_context_data() 메소드를 정의할 때는 반드시 첫 줄에 super() 메소드를 호출해야 한다.
-        context = super().get_context_data(**kwargs)
+        context = super(BooksModelView, self).get_context_data(**kwargs)
         # 첫 화면에 테이블 리스트를 보여주기 위해 컨텍스트 변수 model_list에 담아서 템플릿 시스템에 넘겨주고 있습니다.
         context['model_list'] = ['Book', 'Author', 'Publisher']
         return context
