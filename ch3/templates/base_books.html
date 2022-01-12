@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}Books Application Site{% endblock %}</title>
+{% block sidebar %}
+{% comment %}
+block.super의 템플릿 변수의 의미는 부모 base.html 템플릿에서 정의한 내용을 하위
+base_books.html에서 재상사용한다는 의미이다. 즉 앞에 ul이 따로 붙는다.
+{% endcomment %}
+{{ block.super }}
+<ul>
+  <li><a href="/books/">Books_Home</a></li>
+</ul>
+{% endblock %}

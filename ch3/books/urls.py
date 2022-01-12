@@ -12,6 +12,6 @@ urlpatterns = [
     path('author/<int:pk>', views.AuthorDetail.as_view(), name='author_detail'),
     path('publisher/<int:pk>', views.PublisherDetail.as_view(),
          name='publisher_detail'),
-    path('<int:question_id>/results/', views.results, name='results'),
-    path('<int:question_id>/vote/', views.vote, name='vote')
+    # path('<int:question_id>/results/', views.results, name='results'),
+    # path('<int:question_id>/vote/', views.vote, name='vote')
 ]
