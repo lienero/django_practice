@@ -20,13 +20,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w1oen)$ewj^09+w2(@kmcsmflvm+axu%4j0^g+wnd0g@h4)g!u'
+# 시크릿 키는 프로젝트 내에서 암호화가 필요할 떄 사용되는 항목으로, 외부에 노출 안되는 것이 좋다.
+# 환경변수에 저장하거나 파일에 저장한 후 부르자
+SECRET_KEY = os.environ['SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECRET_KEY = 'django-insecure-w1oen)$ewj^09+w2(@kmcsmflvm+axu%4j0^g+wnd0g@h4)g!u'
 
-ALLOWED_HOSTS = []
+# 디버그 정보가 노출되지 않게 설정
+DEBUG = False
+
+# crsf공격을 방지하기 위해 허용하는 호스트를 설정한다.
+ALLOWED_HOSTS = ['192.168.56.101']
 
 
 # Application definition
