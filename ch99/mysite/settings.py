@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-e&&r@cubljv+q^#l7&3nf!z*@hpqc&68$7p=ys5r74^h1ys)8h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.56.101', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.56.101', 'localhost', '127.0.0.1']  # 수정
 
 
 # Application definition
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # 수정
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,7 +78,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'my_site',
-        'USER': 'root',
+        'USER': 'lee',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': 3306,
@@ -114,6 +115,7 @@ TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
+# db에 저장되는 시간이 지정시간으로 저장됨(false)
 USE_TZ = False
 
 
