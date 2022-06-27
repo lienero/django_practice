@@ -1,21 +1,15 @@
-"""mysite URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 
+from bookmark.views import BookmarkLV, BookmarkDV
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # class-based views
+    # path 함수는 route, view 2개의 필수 인자와 kwargs, name 2개의 선택 인자를 받습니다.
+    # 여기서 정해준 name 인자값은 템플릿 파일에서 많이 사용됩니다.
+    # MVT 원칙을 따르기 위해서 뷰로직을 URL에서 적용하지 않는다.
+    path('boookmark/', BookmarkLV.as_view(), name='index'),
+    path('bookmark/<int:pk>', BookmarkDV.as_view(), name='detail')
 ]
