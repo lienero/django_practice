@@ -21,11 +21,13 @@ class PostDV(DetailView):
     model = Post
 
 
+# ArchiveIndexView는 테이블로부터 객체 리스트를 가져와, 날짜 필드를 기준으로 최신 객체를 먼저 출력합니다.
 class PostAV(ArchiveIndexView):
     model = Post
     date_field = 'modify_dt'
 
 
+# 연도를 기준으로 객체 리스트를 가져와 그 객체들이 속한 월을 리스트로 출력한다.
 class PostYAV(YearArchiveView):
     model = Post
     date_field = 'modify_dt'
@@ -33,11 +35,13 @@ class PostYAV(YearArchiveView):
     make_object_list = True
 
 
+# 연월을 기준으로 객체 리스트를 가져와 그 리스트를 출력합니다.
 class PostMAV(MonthArchiveView):
     model = Post
     date_field = 'modify_dt'
 
 
+# 연월일을 기준으로 객체 리스트를 가져와 리스트를 출력합니다.
 class PostDAV(DayArchiveView):
     model = Post
     date_field = 'modify_dt'
