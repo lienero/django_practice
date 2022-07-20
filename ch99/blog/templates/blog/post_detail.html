@@ -1,0 +1,24 @@
+<h2>{{ object.title }}</h2>
+<p>
+  {% if object.get_previous %}
+    {% comment %} get_previous는 이전 객체를 지정한다 {% endcomment %}
+    <a href="{{ object.get_previous.get_absolute_url }}" title="View previous post">
+      {% comment %} &laquo;는 특수문자 (>>)를 의미한다. {% endcomment %}
+      &laquo;--{{ object.get_previous }}
+    </a>
+  {% endif %}
+
+  {% if object.get_next %}
+  |<a href="{{ object.get_next.get_absolute_url }}" title="View next post">
+    {{ object.get_next }} --&raquo;
+  </a>
+  {% endif %}
+</p>
+
+<p>{{ object.modify_dt|date:"j F Y"}}</p>
+<br>
+
+<div>
+  {% comment %} linebreaks 템플릿 필터는 \n을 인식하게 합니다. {% endcomment %}
+  {{ object.content|linebreaks }}
+</div>
