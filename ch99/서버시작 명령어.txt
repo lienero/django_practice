@@ -2,3 +2,7 @@ source VENV/vDjBook/bin/activate
 python3 manage.py runserver 0.0.0.0:8000
 sudo service mysql start
 http://127.0.0.1:8000/
+
+관리자 계정
+id : admin
+pw : 7777
