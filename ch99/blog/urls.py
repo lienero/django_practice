@@ -9,10 +9,10 @@ urlpatterns = [
     # /blog/post/django-example/
     # 정규식을 지정하여 한글이 포함된 슬러그를 처리하도록 함.
     # 본래 슬러그 컨버터는 한글을 인식 못함
-    re_path(r'^post/(?P<slug>[=\w]+)$',
+    re_path(r'^post/(?P<slug>[-\w]+)/$',
             views.PostDV.as_view(), name='post_detail'),
-    path('archive', views.PostAV.as_view(), name='post_archive'),
-    path('archive/<int:year>/', views.PostYAV.as_view(), name='post_yaar_archive'),
+    path('archive/', views.PostAV.as_view(), name='post_archive'),
+    path('archive/<int:year>/', views.PostYAV.as_view(), name='post_year_archive'),
     path('archive/<int:year>/<str:month>/',
          views.PostMAV.as_view(), name='post_month_archive'),
     path('archive/<int:year>/<str:month>/<int:day>',

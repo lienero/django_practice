@@ -1,5 +1,3 @@
-from pyexpat import model
-from tabnanny import verbose
 from django.db import models
 # reverse() 함수는 url패턴을 만들어주는 장고의 내장 함수다
 from django.urls import reverse
@@ -17,19 +15,21 @@ class Post(models.Model):
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True)
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True)
 
+    # 필드 속성 외에 필요한 파라미터가 있으면 Meta 내부 클래스로 정의합니다.
 
-class Meta:
-    verbose_name = 'post'
-    verbose_name_plural = 'posts'
-    # 테이블의 이름 지정
-    db_table = 'blog_posts'
-    # modify_dt를 내림차순으로 정렬
-    ordering = ('-modify_dt',)
+    class Meta:
+        verbose_name = 'post'
+        verbose_name_plural = 'posts'
+        # 테이블의 이름 지정
+        db_table = 'blog_posts'
+        # modify_dt를 내림차순으로 정렬
+        ordering = ('-modify_dt',)
 
     def __str__(self):
         return self.title
 
     # 정의된 객체를 지칭하는 url을 반환
+
     def get_absolute_url(self):
         return reverse('blog:post_detail', args=(self.slug,))
 
