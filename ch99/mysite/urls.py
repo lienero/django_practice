@@ -1,13 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
+from mysite.views import HomeView
 
 # from bookmark.views import BookmarkLV, BookmarkDV
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', HomeView.as_view(), name='home'),
     # 처리를 bookmark url로 위임
     path('bookmark/', include('bookmark.urls')),
-    path('blog/', include('blog.urls'))
+    path('blog/', include('blog.urls')),
 
     # class-based views
     # path 함수는 route, view 2개의 필수 인자와 kwargs, name 2개의 선택 인자를 받습니다.
