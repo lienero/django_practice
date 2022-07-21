@@ -1,7 +1,8 @@
 import imp
+from multiprocessing import context
 from operator import imod
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
@@ -50,3 +51,22 @@ class PostDAV(DayArchiveView):
 class PostTAV(TodayArchiveView):
     model = Post
     date_field = 'modify_dt'
+
+
+class TagCloudTV(TemplateView):
+    template_name = 'taggit/taggit_cloud.html'
+
+
+class TaggedObjectLV(ListView):
+    template_name = 'taggit/taggit_post_list.html'
+    model = Post
+
+    def get_queryset(self):
+        return Post.objects.filter(tags__name=self.kwargs.get('tag'))
+
+    def get_context_data(self, **kwargs):
+        # super().get_context_data()를 호출하여 상위클래스의 컨텍스트 변수, 즉 변겨엊ㄴ의 컨텍스트 변수를 추가합니다.
+        context = super().get_context_data(**kwargs)
+        # 추가할 컨텍스트 변수명은 tagname 이고, 그 값은 URL에서 tag 파라미터로 넘어온 값을 사용합니다.
+        context['tagname'] = self.kwargs['tag']
+        return context
