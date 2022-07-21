@@ -1,32 +1,38 @@
-<h1>Blog List</h1>
-<br/>
+{% extends 'base.html' %}
 
-{% for post in posts %}
-  <h3>
-    {% comment %} URL 링크는 호출하는 메소드. 모델에서 정의함 reverse 함수 사용 {% endcomment %}
-    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    {% comment %} <a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a> {% endcomment %}
-  </h3>
-  {% comment %} date 포맷 지정 {% endcomment %}
-  {{ post.modify_dt|date:"N d, Y" }}
-  <p>{{ post.description }}</p>
-{% endfor %}
+{% block title %}post_all.html{% endblock  %}
 
-<br/>
+{% block content %}
+  <h1>Blog List</h1>
+  <br/>
 
-<div>
-  <span>
-    {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
-    {% endif %}
-    Page
-    {% comment %} page_obj.number : 현재 페이지 번호 {% endcomment %}
-    {{ page_obj.number }}
-    of
-    {% comment %} page_obj.paginator.num_pages : 총 페이지 개수 {% endcomment %}
-    {{ page_obj.paginator.num_pages }}
-    {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
-    {% endif %}
-  </span>
-</div>
+  {% for post in posts %}
+    <h3>
+      {% comment %} URL 링크는 호출하는 메소드. 모델에서 정의함 reverse 함수 사용 {% endcomment %}
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      {% comment %} <a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a> {% endcomment %}
+    </h3>
+    {% comment %} date 포맷 지정 {% endcomment %}
+    {{ post.modify_dt|date:"N d, Y" }}
+    <p>{{ post.description }}</p>
+  {% endfor %}
+
+  <br/>
+
+  <div>
+    <span>
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+      {% endif %}
+      Page
+      {% comment %} page_obj.number : 현재 페이지 번호 {% endcomment %}
+      {{ page_obj.number }}
+      of
+      {% comment %} page_obj.paginator.num_pages : 총 페이지 개수 {% endcomment %}
+      {{ page_obj.paginator.num_pages }}
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+      {% endif %}
+    </span>
+  </div>
+{% endblock  %}
