@@ -1,13 +1,8 @@
 {% extends 'base.html' %}{% comment %} 템플릿을 상속 {% endcomment %}
 
-{% comment %} static 템플릿 태그를 사용하기 위해서는 load static 문장으로 템플릿 태그 파일 static을 로딩해야 한다. {% endcomment %}
-{% load static %}
-
 {% block title %}home.html{% endblock %}
 
-{% block extra-style %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-{% endblock %}
+{% block extra-style %}{% endblock %}
 
 {% block content %}
   <div class="home-image">
