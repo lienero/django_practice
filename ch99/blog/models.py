@@ -1,6 +1,8 @@
 from django.db import models
 # reverse() 함수는 url패턴을 만들어주는 장고의 내장 함수다
 from django.urls import reverse
+# 태그 패키지
+from taggit.managers import TaggableManager
 
 
 class Post(models.Model):
@@ -14,6 +16,7 @@ class Post(models.Model):
     # auto_mow_add 속성은 객체가 생성될 떄의 시각을 자동으로 기록하게 한다.
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True)
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True)
+    tags = TaggableManager(blank=True)
 
     # 필드 속성 외에 필요한 파라미터가 있으면 Meta 내부 클래스로 정의합니다.
 
