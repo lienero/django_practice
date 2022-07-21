@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}taggit_post_list.html{% endblock %}
+
+{% block content %}
+  <h1>Posts for tag -
+    {{ tagname }}</h1>
+  <br>
+  {% comment %} object_list는 TaggedObjectLV클래스형 변수에서 넘겨주는 컨텍스트 변수, 특정 TAG가 달려있는 Post리스트가 담겨있음 {% endcomment %}
+  {% for post in object_list %}
+    <h2>
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h2>
+    {{ post.modify_dt|date:"N d, Y" }}
+    <p>{{ post.description }}</p>
+  {% endfor %}
+
+{% endblock %}

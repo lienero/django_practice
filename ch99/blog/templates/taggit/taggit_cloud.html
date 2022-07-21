@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}taggit_cloud.html{% endblock %}
+
+{% block content %}
+  <h1>Blog Tag Cloud</h1>
+  <br>
+
+  <div class="tag-cloud">
+    {% load taggit_templatetags2_tags %}
+    {% get_tagcloud as tags %}
+    {% comment %} tag.weight: 태그의 중요도를 의미합니다.
+    floatformat:0: 반올림을 해서 정수형으로 변환하는 필터 {% endcomment %}
+    {% for tag in tags %}
+      <span class="tag-{{tag.weight|floatformat:0}}">
+        {% comment %} tag.num_times: 태그가 몇번 사용되었는지를 의마힙낟. {% endcomment %}
+        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}({{tag.num_times}})</a>
+      </span>
+    {% endfor %}
+  </div>
+{% endblock %}

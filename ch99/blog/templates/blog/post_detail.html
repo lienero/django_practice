@@ -27,4 +27,19 @@
     {% comment %} linebreaks 템플릿 필터는 \n을 인식하게 합니다. {% endcomment %}
     {{ object.content|linebreaks }}
   </div>
+  <br>
+  <div>
+    <b>TAGS</b> <i class="fas fa-tag"></i>
+    {% comment %} taggit_templatetags2 패키지에 정의된 커스텀 태그를 사용하기 위해 모듈 로드 {% endcomment %}
+    {% load taggit_templatetags2_tags %}
+    {% comment %} get_tags_for_object 커스텀 태그를 사용해 object 객체에 달려있는 태그들의 리스트를 출력
+    object 객체는 PostDV 클래스형 뷰에서 넘겨주는 컨텍스트 변수로서 특정 Post 객체가 담겨있습니다.
+    {% endcomment %}
+    {% get_tags_for_object object as "tags" %}
+    {% for tag in tags %}
+      <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+    {% endfor %}
+    &emsp;
+    <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-info btn-sm">TagCloud</span></a>
+  </div>
 {% endblock %}
