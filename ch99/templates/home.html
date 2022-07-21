@@ -1,13 +1,38 @@
 {% extends 'base.html' %}{% comment %} 템플릿을 상속 {% endcomment %}
 
+{% comment %} static 템플릿 태그를 사용하기 위해서는 load static 문장으로 템플릿 태그 파일 static을 로딩해야 한다. {% endcomment %}
+{% load static %}
+
 {% block title %}home.html{% endblock %}
 
+{% block extra-style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock %}
+
 {% block content %}
+  <div class="home-image">
+    <h2 class="title">Django - Python Web Programming</h2>
+    <h4 class="powered"><i class="fas fa-arrow-circle-right"></i> powered by django and bootstrap </h4>
+  </div>
+
+  <hr style="margin: 10px 0">
+
+  <div class="row text-center">
+    <div class="col-sm-6">
+      <h3>Bookmark App</h3>
+      <p>Bookmark is a Uniform Resource Identifier (URI) that is stored for later retrieval in any of various storage formats. You can store your own bookmarks by Bookmark application. It's also possible to update or delete your bookmarks.</p>
+    </div>
+    <div class="col-sm-6">
+      <h3>Blog App</h3>
+      <p>This application makes it possible to log daily events or write your own interests such as hobbies, techniques, etc. A typical blog combines text, digital images, and links to other blogs, web pages, and other media related to its topic.</p>
+    </div>
+  </div>
   <h4>This is CONTENT area.</h4>
 {% endblock %}
 
 {% block footer %}
   <footer class="fixed-bottom bg-info">
+    <div class="text-white font-italic text-right mr-5">Copyright &copy; 2019 DjangoBook by shkim</div>
     <h4>This is FOOTER area.</h4>
   </footer>
 {% endblock %}
