@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from mysite.views import HomeView
 
 # from bookmark.views import BookmarkLV, BookmarkDV
@@ -10,6 +12,7 @@ urlpatterns = [
     # 처리를 bookmark url로 위임
     path('bookmark/', include('bookmark.urls')),
     path('blog/', include('blog.urls')),
+    path('photo/', include('photo.urls')),
 
     # class-based views
     # path 함수는 route, view 2개의 필수 인자와 kwargs, name 2개의 선택 인자를 받습니다.
@@ -17,4 +20,4 @@ urlpatterns = [
     # MVT 원칙을 따르기 위해서 뷰로직을 URL에서 적용하지 않는다.
     # path('bookmark/', BookmarkLV.as_view(), name='index'),
     # path('bookmark/<int:pk>', BookmarkDV.as_view(), name='detail')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
