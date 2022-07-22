@@ -1,13 +1,16 @@
 import imp
 from multiprocessing import context
 from operator import imod
+from pydoc import describe
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView, FormView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 from django.conf import settings
+from django.db.models import Q
 
 from blog.models import Post
+from blog.forms import PostSearchForm
 
 
 class PostLV(ListView):
@@ -81,3 +84,31 @@ class TaggedObjectLV(ListView):
         # 추가할 컨텍스트 변수명은 tagname 이고, 그 값은 URL에서 tag 파라미터로 넘어온 값을 사용합니다.
         context['tagname'] = self.kwargs['tag']
         return context
+
+
+# FormView 제네릭 뷰는 get 요청인 경우 폼을 화면에 보여주고 사용자의 입력을 기다립니다.
+# 사용자가 폼에 데이터를 입력한 후 제출하면 이는 POST 요청으로 접수되며 FromView 클래스는 데이터에 대한 유효성 검사를 합니다.
+# 데이터가 유효하면 form_valid 함수를 실행한 후 적절한 url로 리다이렉트 시키는 기능을 갖고있습니다.
+class SearchFormView(FormView):
+    # 폼으로 사용될 클래스를 지정
+    form_class = PostSearchForm
+    template_name = 'blog/post_search.html'
+
+    def form_valid(self, form):
+        # 유효성 검사를 통과하면 사용자가 입력한 데이터들은 cleaned_data 사전에 존재합니다.
+        searchWord = form.cleaned_data['search_word']
+        # Q 객체는 filter() 메소드의 매칭 조건을 다양하게 줄 수 있도록 합니다.
+        # icontains 연산자는 대소문자를 구분하지 않고 단어가 포함되어 있는지 검사합니다.
+        post_list = Post.objects.filter(Q(title__icontains=searchWord) | Q(
+            description__icontains=searchWord) | Q(content__icontains=searchWord)).distinct()
+
+        # context를 사전 혀ㅑㅇ식으로 정의합니다.
+        context = {}
+        context['form'] = form
+        context['search_term'] = searchWord
+        context['object_list'] = post_list
+
+        # render()는 템플릿 파일과 컨텍스트 변수를 처리해 최종적으로 HttpRespons 객체를 반환합니다.
+        # from_valid()메소드는 보통 리다이렉트 처리를 위해 HttopResponseRedirect 객체를 반환합니다.
+        # 여기서는 from_valid() 메소드를 재정의하여 render() 함수를 사용함으로써, HttpResponseRedirect가 아니라 HttpRespons 객체를 반환합니다.
+        return render(self.request, self.template_name, context)
