@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
+from django.conf import settings
 
 from blog.models import Post
 
@@ -20,6 +21,16 @@ class PostLV(ListView):
 
 class PostDV(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        # 기존의 컨텍스트 변수들을 구하고 이를 context 변수에 할당합니다.
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        # 템플릿 변수에 페이지별 식별자로 사용할 유일값을 만들어 대입합니다.
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.slug}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.slug}"
+        return context
 
 
 # ArchiveIndexView는 테이블로부터 객체 리스트를 가져와, 날짜 필드를 기준으로 최신 객체를 먼저 출력합니다.

@@ -141,3 +141,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # tag설정
 TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_LIMIT = 50
+
+# DISQUS 설정
+DISQUS_SHORTNAME = 'pydjango-web-programming'
+DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000/'
