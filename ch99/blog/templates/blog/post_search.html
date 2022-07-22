@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}post_search.html{% endblock %}
+
+{% block content %}
+  <h1>Blog Search</h1>
+  <br>
+  <form action="." method="post">
+    {% csrf_token %}
+    {% comment %} {{form.as_table}} 을 사용하면 각 필드가 테이블 행으로 렌더링 {% endcomment %}
+    {{ form.as_table}}
+    <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+  </form>
+
+  <br><br>
+  {% if object_list %}
+    {% for post in object_list %}
+      <h2>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      </h2>
+      {{ psot.modify_date|date:"N d, Y" }}
+      <p>{{ post.description }}</p>
+    {% endfor %}
+  {% comment %} 검색 결과가 없으면 검색 단어를 입력했는지 여부를 판단 {% endcomment %}
+  {% elif search_term %}
+    <b>
+      <i>Search Word({{ search_term }}) Not Found</i>
+    </b>
+  {% endif %}
+{% endblock %}
