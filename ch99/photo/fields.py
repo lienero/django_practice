@@ -8,7 +8,8 @@ from django.db.models.fields.files import ImageField, ImageFieldFile
 # ImageFieldFile 클래스는 파일 시스템에 직접 파일을 쓰고 지우는 작업을 합니다.
 class ThumbnailImageFieldFile(ImageFieldFile):
     # 이 메소드는 기존 이미지 파일명을 기준으로 썸네일 이미지 파일명을 만들어 준다.
-    def _add_thumbs(s):
+    # 참고서의 오류, 모든 인스턴스 메서드가 사용자 정의에 따라 self라고 부르는 첫 번째 인수를 기대하기에 s외에 self 인수가 필요
+    def _add_thumbs(self, s):
         parts = s.split(".")
         parts.insert(-1, "thumb")
         # 이미지 확장자가 jpeg 가 아닐 경우
