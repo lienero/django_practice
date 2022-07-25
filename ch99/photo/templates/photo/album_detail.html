@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}album_detail.html{% endblock  %}
+
+{% block content %}
+  <div class="mt-5">
+    {% comment %} &emsp; : 전각 스페이스랑 비슷한 넒이의 스페이스 {% endcomment %}
+    <span class="h2">{{ object.name }}&emsp;</span>
+    <span class="h5 font-italic">{{ object.description }}</span>
+  </div>
+
+  <hr style="margin: 0 0 20px 0;">
+
+  <div class="row">
+    {% comment %} object.photo_set.all은 이 앨범 객체에 들어있는 모든 사진 객체로 구성된 리스트를 의미합니다. {% endcomment %}
+    {% for photo in object.photo_set.all %}
+      <div class="col-md-3 mb-5">
+        <div class="thumbnail">
+          <a href="{{ photo.get_absolute_url }}" style="width: 100%">
+            <img src="{{ photo.image.thumb_url }}" style="width: 100%">
+          </a>
+        </div>
+        <ul>
+          <li class="font-italic">{{ photo.title }}</li>
+          <li class="font-italic">{{ photo.upload_dt|date:"Y-m-d" }}</li>
+        </ul>
+      </div>
+    {% endfor %}
+
+  </div>
+{% endblock  %}
