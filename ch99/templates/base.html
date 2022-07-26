@@ -54,6 +54,31 @@
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" placeholder="global search" name="search_word"/>
         </form>
+        <ul class="navbar-nav ml-5 mr-5">
+          <li class="nav-item dropdown mx-1 btn btn-primary">
+            {% comment %} 로그인하면 is_active() 메소드는 True를 반환합니다. {% endcomment %}
+            {% if user.is_active %}
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user"></i>
+                {% comment %} firstof 템플릿 태그는 다음에 오는 인자들 중에서 False 가 아닌 첫 인자를 선택한다. {% endcomment %}
+                &ensp;{% firstof user.get_short_name user.get_username%}&ensp;
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+              </div>
+            {% else %}
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user"></i>
+                &ensp;Anoymous&ensp;
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+              <div>
+            {% endif %}
+          </li>
+        </ul>
       </div>
     </nav>
     <div class="container">
