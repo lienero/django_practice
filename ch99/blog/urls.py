@@ -22,4 +22,7 @@ urlpatterns = [
     path('tag/<str:tag>/', views.TaggedObjectLV.as_view(),
          name='tagged_object_list'),
     path('search/', views.SearchFormView.as_view(), name='search'),
+    path('add/', views.PostCreateView.as_view(), name='add',),
+    path('change', views.PostChangeLV.as_view(), name='change',),
+    path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='delete',),
 ]
