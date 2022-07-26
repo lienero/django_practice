@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% comment %} widget_tweaks 라이브러리를 로딩 {% endcomment %}
+{% load widget_tweaks %}
+
+{% block title %}login.html{% endblock %}
+
+{% block content %}
+  <h1>Please Login</h1>
+  <p class="font-italic">Please enter your id and password</p>
+
+  {% comment %} form에 에러가 있을 경우 {% endcomment %}
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      <div class="font-weight-bold">Wrong! Please correct the error below.</div>
+      {{ form.errors }}
+    </div>
+  {% endif %}
+
+  <form action="." method="post" class="card pt-3">
+    {% csrf_token %}
+    <div class="form-group row">
+      {% comment %} add_label_calss(widget_tweaks 라이브러리 필터) label 태그에 클래스를 지정 {% endcomment %}
+      {{ form.username|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+      <div class="col-sm-5">
+        {% comment %} add_class 필터를 통해 클래스 지정, attr 필터를 통해 속성 autofocus을 추가 {% endcomment %}
+        {{ form.username|add_class:"form-control"|attr:"autofocus" }}
+      </div>
+    </div>
+    <div class="form-group row">
+      {{ form.password|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+      <div class="col-sm-5">
+        {{ form.password|add_class:"form-contorl" }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="offset-sm-2 col-sm-5">
+        <input type="submit" value="Log in" class="btn btn-info">
+        {% comment %} next 컨텍스트 변수는 LoginView 뷰에서 넘겨줍니다. {% endcomment %}
+        <input type="hidden" name="next" value="{{ next }}">
+      </div>
+    </div>
+  </form>
+{% endblock %}
