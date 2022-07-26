@@ -3,6 +3,10 @@ from django.db import models
 from django.urls import reverse
 # 태그 패키지
 from taggit.managers import TaggableManager
+from django.contrib.auth.models import User
+# slug 필드를 자동으로 채우기 위해 slugify() 함수를 임포트합니다.
+# slugify() 함수는 원래 단어를 알파벳 소문자, 숫자, 밑줄, 하이픈으로만 구성된 단어로 만들어주는 함수다.
+from django.utils.text import slugify
 
 
 class Post(models.Model):
@@ -17,6 +21,9 @@ class Post(models.Model):
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True)
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True)
     tags = TaggableManager(blank=True)
+    # verbose_name : 모델의 필드명을 지정
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name='OWNER', blank=True, null=True)
 
     # 필드 속성 외에 필요한 파라미터가 있으면 Meta 내부 클래스로 정의합니다.
 
@@ -43,3 +50,8 @@ class Post(models.Model):
     def get_next(self):
         # modify_dt 컬럼을 기준으로 예전 포스트를 반환
         return self.get_next_by_modify_dt()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title, allow_unicode=True)
+        # 부모 클래스의 save() 메소드를 호출해 객체의 내용을 테이블에 반영하는 save() 메소드의 원래 기능을 수행합니다.
+        super.save(*args, **kwargs)
