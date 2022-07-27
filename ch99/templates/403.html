@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}403.html{% endblock %}
+
+{% block content %}
+  <h1>Permission Denined (403)</h1>
+  <br>
+
+  <div class="alert alert-danger">
+    {% comment %} exception 컨텍스트 변수는 장고의 permission_denied() 핸들러에서 넘겨주는 템플릿 변수입니다. {% endcomment %}
+    {% comment %} OwnerOnlyMixin 클래스의 permission_denied_message에 지정한 문구가 들어가게 됩니다. {% endcomment %}
+    <div class="font-weight-bold">{{ exception }}</div>
+  </div>
+{% endblock %}
