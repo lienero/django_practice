@@ -54,4 +54,4 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
         # 부모 클래스의 save() 메소드를 호출해 객체의 내용을 테이블에 반영하는 save() 메소드의 원래 기능을 수행합니다.
-        super.save(*args, **kwargs)
+        super().save(*args, **kwargs)
