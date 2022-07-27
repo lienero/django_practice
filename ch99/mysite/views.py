@@ -40,4 +40,4 @@ class OwnerOnlyMixin(AccessMixin):
             # handle_no_permission() 이 메소드에 의해 403 익셉션 처리, 클라이언트에게 403응답을 보냅니다.
             return self.handle_no_permission()
         # 같으면 상위 클래스의 dispatch() 메소드를 호출해서 정상 처리합니다.
-        return super().dispath(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)

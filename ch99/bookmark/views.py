@@ -1,4 +1,3 @@
-from turtle import title
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from bookmark.models import Bookmark
@@ -6,7 +5,7 @@ from bookmark.models import Bookmark
 # 사용자가 로그인 된 경우는 정상 처리를 하지만, 로그인이 안 된 사용자라면 로그인 페이지로 리다이렉트 시킵니다.
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from mysite.views import OwnerOnltMixin
+from mysite.views import OwnerOnlyMixin
 
 
 class BookmarkLV(ListView):
@@ -49,11 +48,11 @@ class BookmarkChangeLV(LoginRequiredMixin, ListView):
         return Bookmark.objects.filter(owner=self.request.user)
 
 
-# OwnerOnltMixin 클래스에 의해 로그인 사용자가 대상 콘텐츠의 소유자인 경우에만 UpdateView 기능이 동작합니다.
+# OwnerOnlyMixin 클래스에 의해 로그인 사용자가 대상 콘텐츠의 소유자인 경우에만 UpdateView 기능이 동작합니다.
 # UpdateView 클래스를 상속받는 클래스는 중요한 몇 가지 클래스 속성만 정의하면,
 # 테이블의 레코드들 중에 지정된 레코드 하나에 대한 내용을 폼으로 보여주고,
 # 폼에서 수정 입력된 내용에서 에러 여부를 체크하며, 에러가 없으면 입력된 내용으로 테이블의 레코드를 수정합니다.
-class BookmarkUpdateView(OwnerOnltMixin, UpdateView):
+class BookmarkUpdateView(OwnerOnlyMixin, UpdateView):
     model = Bookmark
     fields = ['title', 'url']
     success_url = reverse_lazy('bookmark:index')
@@ -61,6 +60,6 @@ class BookmarkUpdateView(OwnerOnltMixin, UpdateView):
 
 # DeleteView 클래스는 중요한 몇가지 클래스 속성만 정의하면 기존 레코드 중에서 지정된 레코드를 삭제할 것인지 확인하는 페이지를 보여줌
 # 사용자가 확인 응답을 하면 해당 레코드를 삭제합니다.
-class BookmarkDeleteView(OwnerOnltMixin, DeleteView):
+class BookmarkDeleteView(OwnerOnlyMixin, DeleteView):
     model = Bookmark
     success_url = reverse_lazy('bookmark:index')

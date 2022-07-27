@@ -24,5 +24,6 @@ urlpatterns = [
     path('search/', views.SearchFormView.as_view(), name='search'),
     path('add/', views.PostCreateView.as_view(), name='add',),
     path('change', views.PostChangeLV.as_view(), name='change',),
+    path('<int:pk>/update/', views.PostUpdateView.as_view(), name='update',),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='delete',),
 ]
