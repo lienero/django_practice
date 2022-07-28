@@ -120,6 +120,7 @@ class SearchFormView(FormView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'slug', 'description', 'content', 'tags']
+    # slug 필드를 임의로 입력하지 말라는 의미로 초기값을 auto-filling-do-not-input으로 지정함
     initial = {'slug': 'auto-filling-do-not-input'}
     #fields = ['title', 'description', 'content', 'tags']
     success_url = reverse_lazy('blog:index')

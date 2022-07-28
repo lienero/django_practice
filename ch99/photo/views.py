@@ -44,7 +44,7 @@ class PhotoChangeLV(LoginRequiredMixin, ListView):
 
 class PhotoUV(OwnerOnlyMixin, UpdateView):
     model = Photo
-    fields = ['album', 'title', 'image', 'description']
+    fields = ('album', 'title', 'image', 'description')
     success_url = reverse_lazy('photo:index')
 
 
@@ -70,7 +70,7 @@ class AlbumDelV(OwnerOnlyMixin, DeleteView):
 # 인라인 폼 사용하는 뷰
 class AlbumPhotoCV(LoginRequiredMixin, CreateView):
     model = Album
-    fields = ['name', 'description']
+    fields = ('name', 'description')
     success_url = reverse_lazy('photo:index')
 
     # 디폴트 컨텍스트 변수 이외에 추가적인 컨텍스트 변수를 정의하기 위해 get_context_data() 메소드를 오버라이딩 정의합니다.
@@ -114,14 +114,14 @@ class AlbumPhotoCV(LoginRequiredMixin, CreateView):
 
 class AlbumPhotoUV(LoginRequiredMixin, UpdateView):
     model = Album
-    fields = ['name', 'description']
+    fields = ('name', 'description')
     success_url = reverse_lazy('photo:index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
             context['formset'] = PhotoInlineFormSet(
-                self.request.POST, self.request.FILES)
+                self.request.POST, self.request.FILES, instance=self.object)
         else:
             context['formset'] = PhotoInlineFormSet(instance=self.object)
         return context
